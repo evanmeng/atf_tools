@@ -1,1 +1,4 @@
-These samples run well in Firefox9.0, win7 64 (NVIDIA GeForce 9800 GT)
+These samples run well in the following environments:
+
+1. Firefox9.0, win7 64 (NVIDIA GeForce 9800 GT)
+2. Firefox9.0, ubuntu 11.10, 32 bit (ATI)
