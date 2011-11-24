@@ -38,19 +38,21 @@ def simplify(nMaxKeepCopies, outdatedFolders):
                     i = i-1                    
                     outdatedFolders.append(d[k])
 
-def handleRemoveReadonly(func, path, exc):
-  excvalue = exc[1]
-  if func in (os.rmdir, os.remove) and excvalue.errno == errno.EACCES:
-      os.chmod(path, stat.S_IRWXU| stat.S_IRWXG| stat.S_IRWXO) # 0777
-      func(path)
-  else:
-      raise
+def onerror(func, path, exc_info):
+    import stat
+    if not os.access(path, os.W_OK):
+        # Is the error an access error ?
+        os.chmod(path, stat.S_IWUSR)
+        func(path)
+    else:
+        raise
     
 def removeDirs(outdatedFolders):
     print ("Begin to clean ................................")
     for k in outdatedFolders:
         print( "Removing..." + k)
-        shutil.rmtree(k, False, handleRemoveReadonly)
+        shutil.rmtree(k, False, onerror)
+        #shutil.rmtree(k)
     print ("End to clean...................................")
 
 def main():
