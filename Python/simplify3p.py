@@ -55,27 +55,37 @@ def removeDirs(outdatedFolders):
         #shutil.rmtree(k)
     print ("End to clean...................................")
 
+def interact(prompt):
+	majorver = sys.version_info[0]
+	if majorver == 3:
+		return input(prompt).strip()
+	else:
+		return raw_input(prompt).strip()
+
+def y_or_n(prompt, default='y'):
+	default_yes = default in ['y', 'Y']
+	suffix = '[yN]'
+	if (default_yes): suffix = '[Yn]'
+	decorated_prompt = "%s %s: " % (prompt, suffix)
+	userinput = interact(decorated_prompt)
+	if not len(userinput):
+		return default_yes
+	return userinput in ['y', 'Y']
+
 def main():
     while(1):
         nMaxKeepCopies = 3
-        sInput = input("input the number of copies you want to keep: \n(press enter to keep the default number for 3)?")
-        sInput = sInput.strip()
+        sInput = interact("input the number of copies you want to keep: \n(press enter to keep the default number for 3)?")
         if(sInput.isdigit()):
             nMaxKeepCopies = int(sInput)
         
         outdatedFolders = []
         simplify(nMaxKeepCopies, outdatedFolders)
         
-        sInput = input("Remove the above folders(y or n)?")
-        sInput = sInput.strip()
-
-        print (sInput)
-        if(sInput == "y" or sInput == "Y"):
+        if y_or_n("Remove the above folders?", default='n'):
             removeDirs(outdatedFolders)
             
-        sInput = input("Quit(y or n)?")
-        sInput = sInput.strip()
-        if(sInput == "y" or sInput == "Y"):
+        if y_or_n("Quit?"):
             quit()
     
 if __name__ == '__main__':
