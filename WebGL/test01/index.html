@@ -1,7 +1,7 @@
 <html>
 
 <head>
-<title>WebGL test 01</title>
+<title>3D viewer based on webGL</title>
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 
 <script type="text/javascript" src="glMatrix-0.9.5.min.js"></script>
@@ -373,19 +373,27 @@
         alert("Zoom All!");
     }
 
+    function browse(){
+        alert("Browse the file!");
+    }
+
+    function upload(){
+        alert("Upload the file!");
+    }
+
 </script>
 </head>
 
 <body onload="webGLStart();">
+    <form id="myForm1" method="post">
+    Browse the file to view: <br /><input type="text" value="" /><input type="button" onclick="browse()" value="Browse" />
+    <input type="button" onclick="upload()" value="Upload" />
+    </form>
+
     <canvas id="test01-canvas" style="border: none;" width="500" height="500"></canvas>
-    <p> 
-    Left button: Rotate the model <br />
-    Middle button: Translate the model <br />
-    Right button: Scale the model <br /> <br />
-    Click the following button to zoom all: <br />
-    </p>
-    <form id="myForm" method="post">
-    <input type="button" onclick="zoomAll()" value="Zoom All" />
+    
+    <form id="myForm2" method="post">
+    <br /> <input type="button" onclick="zoomAll()" value="Zoom All" />
     </form>
 </body>
 

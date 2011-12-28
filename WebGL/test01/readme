@@ -1,0 +1,15 @@
+Done:
+1.View the cube in browser
+2.Support the following operations:
+  Left mouse for rotatation;
+  Middle mouse for transltation;
+  Right mouse for scale
+3.Add some button for future use
+
+To do:
+1.Extract the mesh data to a json file
+2.Convert other formats to json file
+3.Implement browse button
+4.Implement upload button
+5.Implement zoom all button
+
