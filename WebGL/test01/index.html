@@ -366,12 +366,25 @@
 
         tick();
     }
+    
+    function zoomAll(){
+        alert("Zoom All!");
+    }
 
 </script>
 </head>
 
 <body onload="webGLStart();">
     <canvas id="test01-canvas" style="border: none;" width="500" height="500"></canvas>
+    <p> 
+    Left button: Rotate the model <br />
+    Middle button: Translate the model <br />
+    Right button: Scale the model <br /> <br />
+    Click the following button to zoom all: <br />
+    </p>
+    <form id="myForm" method="post">
+    <input type="button" onclick="zoomAll()" value="Zoom All" />
+    </form>
 </body>
 
 </html>
