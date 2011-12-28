@@ -120,20 +120,6 @@
     var mvMatrixStack = [];
     var pMatrix = mat4.create();
 
-    function mvPushMatrix() {
-        var copy = mat4.create();
-        mat4.set(mvMatrix, copy);
-        mvMatrixStack.push(copy);
-    }
-
-    function mvPopMatrix() {
-        if (mvMatrixStack.length == 0) {
-            throw "Invalid popMatrix!";
-        }
-        mvMatrix = mvMatrixStack.pop();
-    }
-
-
     function setMatrixUniforms() {
         gl.uniformMatrix4fv(shaderProgram.pMatrixUniform, false, pMatrix);
         gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mvMatrix);
@@ -142,6 +128,17 @@
 
     function degToRad(degrees) {
         return degrees * Math.PI / 180;
+    }
+    
+    function degToScale(degrees) {
+        if(degrees ==0)
+            return 1.0;
+            
+        var value = degrees /2.0;
+        if(value > 0)
+            return value;
+        else
+            return -(1.0/value);
     }
     
     var mouseDown = false;
@@ -161,8 +158,23 @@
     function handleMouseUp(event) {
         mouseDown = false;
     }
+    
+    function handleMouseMove(event){
+        if(!mouseDown){
+            return;
+        }
+        if(event.button==0){
+            handleLeftMouseMove(event);
+        }
+        else if(event.button==1){
+            handleMiddleMouseMove(event);
+        }
+        else{
+            handleRightMouseMove(event);
+        }    
+    }
 
-    function handleMouseMove(event) {
+    function handleLeftMouseMove(event) {
         if (!mouseDown) {
             return;
         }
@@ -178,6 +190,46 @@
         mat4.rotate(newRotationMatrix, degToRad(deltaY), [1, 0, 0]);
 
         mat4.multiply(newRotationMatrix, cubeRotationMatrix, cubeRotationMatrix);
+
+        lastMouseX = newX
+        lastMouseY = newY;
+    }
+    
+    function handleMiddleMouseMove(event) {
+        if (!mouseDown) {
+            return;
+        }
+        var newX = event.clientX;
+        var newY = event.clientY;
+
+        var deltaX = newX - lastMouseX
+        var deltaY = newY - lastMouseY;
+        var newTranslationMatrix = mat4.create();
+        mat4.identity(newTranslationMatrix);
+        mat4.translate(newTranslationMatrix, [deltaX/10, deltaY/10, 0]);
+
+        mat4.multiply(newTranslationMatrix, cubeRotationMatrix, cubeRotationMatrix);
+
+        lastMouseX = newX
+        lastMouseY = newY;
+    }
+    
+    function handleRightMouseMove(event) {
+        if (!mouseDown) {
+            return;
+        }
+        var newX = event.clientX;
+        var newY = event.clientY;
+
+        var deltaX = newX - lastMouseX
+        var deltaY = newY - lastMouseY;  
+        //alert ("deltaX=" + deltaX + "; deltaY=" + deltaY);
+        var scaleValue = degToScale(deltaY);
+        var newScaleMatrix = mat4.create();
+        mat4.identity(newScaleMatrix);
+        mat4.scale(newScaleMatrix, [scaleValue, scaleValue, scaleValue]);
+
+        mat4.multiply(newScaleMatrix, cubeRotationMatrix, cubeRotationMatrix);
 
         lastMouseX = newX
         lastMouseY = newY;
@@ -266,8 +318,7 @@
         gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(cubeVertexIndices), gl.STATIC_DRAW);
         cubeVertexIndexBuffer.itemSize = 1;
         cubeVertexIndexBuffer.numItems = 36;
-    }
-
+    }  
 
     var rPyramid = 0;
     var rCube = 0;
