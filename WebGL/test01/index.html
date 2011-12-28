@@ -206,7 +206,7 @@
         var deltaY = newY - lastMouseY;
         var newTranslationMatrix = mat4.create();
         mat4.identity(newTranslationMatrix);
-        mat4.translate(newTranslationMatrix, [deltaX/10, deltaY/10, 0]);
+        mat4.translate(newTranslationMatrix, [deltaX/20, -deltaY/20, 0]);
 
         mat4.multiply(newTranslationMatrix, cubeRotationMatrix, cubeRotationMatrix);
 
@@ -329,7 +329,9 @@
 
         mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
         mat4.identity(mvMatrix);
-        mat4.translate(mvMatrix, [-1.5, 0.0, -8.0]);
+        //mat4.translate(mvMatrix, [-1.5, 0.0, -8.0]);
+        mat4.translate(mvMatrix, [0, 0.0, -10.0]);
+        mat4.rotate(mvMatrix, Math.PI/4, [1, 1, 0]);
         mat4.multiply(mvMatrix, cubeRotationMatrix);
 
         setMatrixUniforms();
