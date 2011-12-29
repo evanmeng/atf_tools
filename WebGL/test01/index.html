@@ -2,7 +2,7 @@
 
 <head>
 <title>3D viewer based on webGL</title>
-<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
 <script type="text/javascript" src="glMatrix-0.9.5.min.js"></script>
 <script type="text/javascript" src="webgl-utils.js"></script>
@@ -175,9 +175,7 @@
     }
 
     function handleLeftMouseMove(event) {
-        if (!mouseDown) {
-            return;
-        }
+
         var newX = event.clientX;
         var newY = event.clientY;
 
@@ -196,9 +194,7 @@
     }
     
     function handleMiddleMouseMove(event) {
-        if (!mouseDown) {
-            return;
-        }
+
         var newX = event.clientX;
         var newY = event.clientY;
 
@@ -215,9 +211,7 @@
     }
     
     function handleRightMouseMove(event) {
-        if (!mouseDown) {
-            return;
-        }
+
         var newX = event.clientX;
         var newY = event.clientY;
 
@@ -235,9 +229,43 @@
         lastMouseY = newY;
     }
 
+
+
     var cubeVertexPositionBuffer;
     var cubeVertexColorBuffer;
     var cubeVertexIndexBuffer;
+
+    function handleCube(CubeData) {
+
+        cubeVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(CubeData.vertexPositions), gl.STATIC_DRAW);
+        cubeVertexPositionBuffer.itemSize = 3;
+        cubeVertexPositionBuffer.numItems = 24;
+
+        cubeVertexColorBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexColorBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(CubeData.vertexColors), gl.STATIC_DRAW);
+        cubeVertexColorBuffer.itemSize = 4;
+        cubeVertexColorBuffer.numItems = 24;
+
+        cubeVertexIndexBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexIndexBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Uint16Array(CubeData.vertexIndices), gl.STATIC_DRAW);
+        cubeVertexIndexBuffer.itemSize = 1;
+        cubeVertexIndexBuffer.numItems = 36;
+    }
+
+    function loadCube() {
+        var request = new XMLHttpRequest();
+        request.open("GET", "cube.json");
+        request.onreadystatechange = function () {
+            if (request.readyState == 4) {
+                handleCube(JSON.parse(request.responseText));
+            }
+        }
+        request.send();
+    }
 
     function initBuffers() {
     
@@ -357,7 +385,9 @@
         var canvas = document.getElementById("test01-canvas");
         initGL(canvas);
         initShaders()
-        initBuffers();
+        //initBuffers();
+
+        loadCube();
 
         gl.clearColor(0.0, 0.0, 0.0, 1.0);
         gl.enable(gl.DEPTH_TEST);
