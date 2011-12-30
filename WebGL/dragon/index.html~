@@ -1,0 +1,53 @@
+<html>
+
+<head>
+<title>3D viewer based on webGL</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<script type="text/javascript" src="utilities/glMatrix-0.9.5.min.js"></script>
+<script type="text/javascript" src="utilities/webgl-utils.js"></script>
+
+<script id="shader-fs" type="x-shader/x-fragment">
+    #ifdef GL_ES
+    precision highp float;
+    #endif
+
+    varying vec4 vColor;
+
+    void main(void) {
+        gl_FragColor = vColor;
+    }
+</script>
+
+<script id="shader-vs" type="x-shader/x-vertex">
+    attribute vec3 aVertexPosition;
+    attribute vec4 aVertexColor;
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+    varying vec4 vColor;
+    void main(void) {
+        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+        vColor = aVertexColor;
+    }
+</script>
+
+<script type="text/javascript" src="js/webgl.js"></script>
+<script type="text/javascript" src="utilities/Demo.js"></script>
+
+</head>
+
+<body onload="webGLStart();">
+	<form>
+		<label class="itemLabel"for="fileInput">Browse the file to view:</label> <br />
+		<input name="fileInput" id="fileInput" type="file" onchange="localfileSelected()" />
+        <input type="button" onclick="Draw()" value="Draw" />
+	</form>
+
+    <canvas id="test01-canvas" style="border: none;" width="500" height="500"></canvas>
+    
+    <form>
+    <br /> <input type="button" onclick="zoomAll()" value="Zoom All" />
+    </form>
+</body>
+
+</html>
