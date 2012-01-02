@@ -235,13 +235,7 @@
         request.open("GET", remoteFilename);
         request.onreadystatechange = function () {
             if (request.readyState == 4) {
-            	status = request.status;
-            	if(status == 200){
                 handleCube(JSON.parse(request.responseText));
-               }
-               else{
-               	alert("Can not download the translated jason file!");
-               }
             }
         }
         request.send();

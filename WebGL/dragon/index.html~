@@ -42,6 +42,7 @@
 	</iframe>
 	
 	<form>
+	 <a href="download.php?download_file=package.json">Download package.json here</a>
 	 <input type="button" onClick="draw()" value="Draw">
     <input type="button" onclick="zoomAll()" value="Zoom All" /> <br />
     <canvas id="test01-canvas" style="border: none;" width="420" height="420"></canvas>
