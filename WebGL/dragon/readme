@@ -1,29 +1,25 @@
 {
  "Done":
  [
-	["1.View the cube in browser"],
-	["2.
-	Left mouse for rotatation;
-	Middle mouse for transltation;
-	Right mouse for scale"
+	["View the cube in browser"],
+	[
+		["Left mouse for rotatation"],
+		["Middle mouse for transltation"],
+		["Right mouse for scale"]
 	],
 	["Add some button for future use"],
 	["Extract the mesh data to a json file"],
 	["apache,php,jquery upload plugs"],
-	 ["XMLHttpRequest for ajax get action"]
+	["XMLHttpRequest for ajax get action"]
  ],
 
  "Todo":
  [
+	["Convert other formats to json file"],
 	[
-	"01.Implement middle mouse for scale
-	02.Implement room feature
-	03.Implement Draw feature"
+		["Implement middle mouse for scale"],
+		["Implement room feature"]
 	],
-	["1.Convert other formats to json file"],
-	["2.Implement browse button"],
-	["3.Implement upload button"],
-	["4.Implement zoom all button"]
  ]
 }
 

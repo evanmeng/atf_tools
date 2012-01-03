@@ -305,6 +305,7 @@
     }
 
     function draw(){ 
+
     	/*fileinput = $("#uploadfiles");
     	 files = $(":file").files;
     	 if(files.length>0){
