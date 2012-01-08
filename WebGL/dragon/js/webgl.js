@@ -305,6 +305,9 @@
     }
 
     function draw(){ 
+    
+    	//var path = $('#upload_htm').$('#file').attr("value");
+    	//alert(path);
 
     	/*fileinput = $("#uploadfiles");
     	 files = $(":file").files;
