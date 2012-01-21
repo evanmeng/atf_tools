@@ -229,10 +229,12 @@
 
     function loadCube() {
         var request = new XMLHttpRequest();
-        serverFolder = "http://localhost/utilities/jQuery-File-Upload/php/files/";
+        
+        // Remember to replace this URL for the absolute server path
+        serverFolder = "http://shacng8420tv7.ads.autodesk.com/utilities/jQuery-File-Upload/php/files/";
         filename = "cube.json";
         remoteFilename = serverFolder + filename;
-        request.open("GET", remoteFilename);
+        request.open("GET", remoteFilename, false);
         request.onreadystatechange = function () {
             if (request.readyState == 4) {
             	status = request.status;

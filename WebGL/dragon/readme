@@ -10,11 +10,13 @@
 	["Add some button for future use"],
 	["Extract the mesh data to a json file"],
 	["apache,php,jquery upload plugs"],
-	["XMLHttpRequest for ajax get action"]
+	["XMLHttpRequest for ajax get action"],
+    ["Support absolute server path"]
  ],
 
  "Todo":
  [
+    ["Support file name"],
 	["Convert other formats to json file"],
 	[
 		["Implement middle mouse for scale"],
